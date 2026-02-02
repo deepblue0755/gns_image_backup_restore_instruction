@@ -14,7 +14,7 @@ $(TEX_FILE):$(MD_FILE)
 $(OUTPUT_DIR)/%.pdf:%.md
 	@mkdir -p $(OUTPUT_DIR)
 	pandoc $< \
-	--from markdown+raw_html \
+	--from markdown-implicit_figures \
 	--resource-path=.:./pictures/ \
 	--pdf-engine=xelatex \
 	-V floatplacement=H \
@@ -22,7 +22,7 @@ $(OUTPUT_DIR)/%.pdf:%.md
 	-V mainfont="Microsoft YaHei" \
 	-V CJKmainfont="Noto Serif CJK SC" \
 	-V fontsize=12pt \
-	-V geometry:margin=2.5cm \
+	-V geometry:"a4paper, margin=2.5cm" \
 	-o $@
 
 
