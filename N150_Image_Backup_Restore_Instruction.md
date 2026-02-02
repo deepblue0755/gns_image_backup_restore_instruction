@@ -1,7 +1,7 @@
 # 文档更改记录
 
-| INDEX | 版本     | 更改内容 |
-| ----- | ------ | ---- |
+| INDEX | 版本   | 更改内容 |
+| ----- | ------ | ----     |
 | 1     | V1.0.0 | 新建文档 |
 
 # 背景
@@ -55,21 +55,29 @@
 3. 将 U 盘接入 Windows 主机。为避免写入过程被拦截，建议临时关闭系统安全防护或防火墙。
    按照下图所示，在 Rufus 中选择并加载对应的 ISO 烧录镜像。
 
-<div align="center"> <img src="pictures/1.PNG" alt="image-1" vertical="40%" horizon="40%"> </div>
+<div align="center"> 
+    <img src="pictures/1.PNG" alt="image-1" vertical="40%" horizon="40%"> 
+</div>
 
 4. 点击 START 后，在弹出的模式选择对话框中，选择
    Write in ISO Image mode。
 
-<div align="center"> <img src="pictures/2.PNG" alt="image-2" vertical="40%" horizon="40%"> </div>
+<div align="center"> 
+    <img src="pictures/2.PNG" alt="image-2" vertical="40%" horizon="40%">
+</div>
 
 5. 点击 OK 确认后，等待烧录过程完成，并观察进度条状态。
 
-<div align="center"> <img src="pictures/3.PNG" alt="image-3" vertical="40%" horizon="40%"> </div>
+<div align="center">
+    <img src="pictures/3.PNG" alt="image-3" vertical="40%" horizon="40%"> 
+</div>
 
 6. 当进度条显示 100%（如下图所示）后，在 Windows 设备管理器 / 任务栏中执行
    “安全移除硬件” 操作。 **确认系统提示可以移除设备后，方可拔出 U 盘。**
 
-<div align="center"> <img src="pictures/4.PNG" alt="image-4" vertical="40%" horizon="40%"> </div>
+<div align="center">
+    <img src="pictures/4.PNG" alt="image-4" vertical="40%" horizon="40%">
+</div>
 
 7. 将制作完成的 U 盘插入 GNS-N150 控制器，重新上电并在启动过程中按住 Delete 键，进入 UEFI 设置界面。
    后续启动项配置及启动流程详见下一节说明。
@@ -79,7 +87,9 @@
 1. 在已完成烧录的 U 盘根目录下，新建一个不带任何后缀名的空文件，命名为
    BACKUP_ROOTFS。 文件位置及状态应如下图所示：
 
-<div align="center"> <img src="pictures/5.PNG" alt="image-5" vertical="40%" horizon="40%"> </div>
+<div align="center">
+    <img src="pictures/5.PNG" alt="image-5" vertical="40%" horizon="40%">
+</div>
 
 2. 将 U 盘插入 GNS-N150 控制器的 USB 接口，重新上电启动设备。
 

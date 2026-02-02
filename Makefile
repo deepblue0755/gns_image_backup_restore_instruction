@@ -1,44 +1,49 @@
- # AR PL KaitiM GB,文鼎ＰＬ简中楷
- # AR PL SungtiL GB,文鼎ＰＬ简报宋
- # AR PL UMing CN
- # AR PL UMing HK
- # AR PL UMing TW
- # AR PL UMing TW MBE
- # Noto Sans CJK HK
- # Noto Sans CJK JP
- # Noto Sans CJK KR
- # Noto Sans CJK SC
- # Noto Sans CJK TC
- # Noto Sans Mono CJK HK
- # Noto Sans Mono CJK JP
- # Noto Sans Mono CJK KR
- # Noto Sans Mono CJK SC
- # Noto Sans Mono CJK TC
- # Noto Serif CJK HK
- # Noto Serif CJK JP
- # Noto Serif CJK KR
- # Noto Serif CJK SC
- # Noto Serif CJK TC
- # WenQuanYi Micro Hei Mono,文泉驛等寬微米黑,文泉驿等宽微米黑
- # WenQuanYi Micro Hei,文泉驛微米黑,文泉驿微米黑
- # WenQuanYi Zen Hei Mono,文泉驛等寬正黑,文泉驿等宽正黑
- # WenQuanYi Zen Hei Sharp,文泉驛點陣正黑,文泉驿点阵正黑
- # WenQuanYi Zen Hei,文泉驛正黑,文泉驿正黑
 OUTPUT_DIR := ./build
+TEX_OUTPUT_DIR := ./build/tex_output/
 MD_FILE := ./N150_Image_Backup_Restore_Instruction.md
 MD_PDF := $(OUTPUT_DIR)/N150_Image_Backup_Restore_Instruction.pdf
+MD_TEX_PDF := $(TEX_OUTPUT_DIR)/N150_Image_Backup_Restore_Instruction.pdf
+TEX_FILE := $(OUTPUT_DIR)/N150_Image_Backup_Restore_Instruction.tex
 
-all:$(MD_PDF)
+all:$(MD_PDF) $(TEX_FILE) $(MD_TEX_PDF)
 
 $(MD_PDF):$(MD_FILE)
 
+$(TEX_FILE):$(MD_FILE)
+
 $(OUTPUT_DIR)/%.pdf:%.md
 	@mkdir -p $(OUTPUT_DIR)
-	pandoc $< --pdf-engine=xelatex -V mainfont="WenQuanYi Micro Hei Mono" -o $@
+	pandoc $< \
+	--from markdown+raw_html \
+	--resource-path=.:./pictures/ \
+	--pdf-engine=xelatex \
+	-V floatplacement=H \
+	-V figurePosition=H \
+	-V mainfont="Microsoft YaHei" \
+	-V CJKmainfont="Noto Serif CJK SC" \
+	-V fontsize=12pt \
+	-V geometry:margin=2.5cm \
+	-o $@
 
-.PHONEY:move
 
-move:
-	@cp $(MD_PDF) ~/share/
+$(OUTPUT_DIR)/%.tex:%.md
+	@mkdir -p $(OUTPUT_DIR)
+	pandoc $< -s  --pdf-engine=xelatex \
+	-V CJKmainfont="Noto Serif CJK SC" \
+	-o $(TEX_FILE)
+
+$(TEX_OUTPUT_DIR)/%.pdf:$(OUTPUT_DIR)/%.tex
+	@mkdir -p $(TEX_OUTPUT_DIR)
+	xelatex -halt-on-error --output-directory=$(TEX_OUTPUT_DIR) $< 
+	
+
+.PHONEY:share clean
+
+share:
+	$(RM) ~/share/*.pdf
+	@cp -fv $(MD_PDF) ~/share/
+clean:
+	$(RM) $(OUTPUT_DIR)/*.pdf
+	$(RM) $(TEX_OUTPUT_DIR)/*.pdf
 
 	
