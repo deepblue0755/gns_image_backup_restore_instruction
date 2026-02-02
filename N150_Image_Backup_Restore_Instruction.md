@@ -45,12 +45,12 @@
 ## U盘启动盘制作（Windows 环境）
 
 1. 从共享目录
-   \\192.168.201.13\共享文件夹\linux镜像文件\N150-System-Images
+   `\\192.168.201.13\共享文件夹\linux镜像文件\N150-System-Images`
    拷贝所需的 ISO 镜像文件 至本地或确认可直接访问该目录。
 
 2. 在 Windows 系统中以管理员权限启动 Rufus 软件。
    Rufus 可在以下共享目录中获取：
-   \\192.168.201.13\共享文件夹\linux镜像文件\N150-System-Images\01-Infrastructures
+   `\\192.168.201.13\共享文件夹\linux镜像文件\N150-System-Images\01-Infrastructures`
 
 3. 将 U 盘接入 Windows 主机。为避免写入过程被拦截，建议临时关闭系统安全防护或防火墙。
    按照下图所示，在 Rufus 中选择并加载对应的 ISO 烧录镜像。
