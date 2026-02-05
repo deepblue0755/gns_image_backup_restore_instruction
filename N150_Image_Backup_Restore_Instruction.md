@@ -205,7 +205,7 @@ d. 随后，将备份得到的系统文件与基准镜像一并上传至镜像�
 \includegraphics[width=0.4\linewidth]{pictures/1.PNG}
 \end{center}
 -->
-![ ](pictures/1.PNG){width=50%}
+![](pictures/1.PNG){width=50%}
 
 4. 点击 START 后，在弹出的模式选择对话框中，选择
    Write in ISO Image mode。
