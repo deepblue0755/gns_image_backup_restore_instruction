@@ -29,22 +29,7 @@
 
 GNS Linux 镜像更新通常包含以下阶段：
 
-┌──────────────┐   ┌──────────────┐   ┌──────────────────────┐   ┌──────────────┐
-│ 1. 需求确认  │   │ 2. 基准镜像  │   │ 3. 更新集成与版本管控│   │ 4. 功能验证  │
-│              │   │ 选择与安装   │   │                      │   │              │
-│ Redmine/邮件 │──▶│ 稳定版本     │──▶│ 内核/驱动/组件       │──▶│ 功能+稳定性  │──| 
-│ Issue 可追溯 │   │ GNS 控制器   │   │ /opt 高频目录        │   │ 测试         │  │
-│              │   │ 完整安装     │   │ Git 白名单追踪       │   │              │  │
-└──────────────┘   └──────────────┘   └──────────────────────┘   └──────────────┘  │
-                                                                                   │  
-                                                                                   ▼
-┌──────────────┐   ┌──────────────────────┐   ┌──────────────────────┐    ┌─────────────────────────┐
-│ 8. 升级回退  │   │ 7. 镜像发布与交付    │   │ 6. 镜像构建          │    │ 5. 单元测试与一致性校验 │
-│              │   │                      │   │                      │    │                         │
-│ U盘升级      │◀──│ 共享服务器发布       │◀──│ U盘构建 / 自动化打包 │◀── │ release_check.sh -c     │
-│ 原系统备份   │   │ 规范命名             │   │ 按更新范围选择方式   │    │ 自动重启 + 系统备份     │
-│ 快速回退     │   │                      │   │                      │    │ 上传打包服务器          │
-└──────────────┘   └──────────────────────┘   └──────────────────────┘    └─────────────────────────┘
+![](./pictures/googoltech-os-package-workflow.png){width=100%}
 
 1. 更新需求确认
 
@@ -214,52 +199,20 @@ d. 随后，将备份得到的系统文件与基准镜像一并上传至镜像�
 3. 将 U 盘接入 Windows 主机。为避免写入过程被拦截，建议临时关闭系统安全防护或防火墙。
    按照下图所示，在 Rufus 中选择并加载对应的 ISO 烧录镜像。
 
-<!--
-<div align="center"> 
-    <img src="pictures/1.PNG" alt="image-1" vertical="40%" horizon="40%"> 
-</div>
-\begin{center}
-\includegraphics[width=0.4\linewidth]{pictures/1.PNG}
-\end{center}
--->
-![](pictures/1.PNG){width=50%}
+![](pictures/1.PNG){width=80%}
 
 4. 点击 START 后，在弹出的模式选择对话框中，选择
    Write in ISO Image mode。
 
-<!--
-<div align="center"> 
-    <img src="pictures/2.PNG" alt="image-2" vertical="40%" horizon="40%">
-</div>
-\begin{center}
-\includegraphics[width=0.8\linewidth]{pictures/2.PNG}
-\end{center}
--->
-![](pictures/2.PNG){width=50%}
+![](pictures/2.PNG){width=80%}
 
 5. 点击 OK 确认后，等待烧录过程完成，并观察进度条状态。
 
-<!--
-<div align="center">
-    <img src="pictures/3.PNG" alt="image-3" vertical="40%" horizon="40%"> 
-</div>
-\begin{center}
-\includegraphics[width=0.8\linewidth]{pictures/3.PNG}
-\end{center}
--->
 ![](pictures/3.PNG){width=50%}
 
 6. 当进度条显示 100%（如下图所示）后，在 Windows 设备管理器 / 任务栏中执行
    “安全移除硬件” 操作。 **确认系统提示可以移除设备后，方可拔出 U 盘。**
 
-<!--
-<div align="center">
-    <img src="pictures/4.PNG" alt="image-4" vertical="40%" horizon="40%">
-</div>
-\begin{center}
-\includegraphics[width=0.8\linewidth]{pictures/4.PNG}
-\end{center}
--->
 ![](pictures/4.PNG){width=50%}
 
 7. 将制作完成的 U 盘插入 GNS-N150 控制器，重新上电并在启动过程中按住 Delete 键，进入 UEFI 设置界面。
@@ -267,19 +220,15 @@ d. 随后，将备份得到的系统文件与基准镜像一并上传至镜像�
 
 # 系统备份流程（GNS-N150）
 
+备份的主要流程如下图所示： 
+
+![](pictures/backup-workflow.png){width=100%}   
+
+
 1. 在已完成烧录的 U 盘根目录下，新建一个不带任何后缀名的空文件，命名为
    BACKUP_ROOTFS。 文件位置及状态应如下图所示：
 
-<!--
-<div align="center">
-    <img src="pictures/5.PNG" alt="image-5" vertical="40%" horizon="40%">
-</div>
-\begin{center}
-\includegraphics[width=0.8\linewidth]{pictures/5.PNG}
-\end{center}
--->
-![](pictures/5.PNG){width=50%}
-
+![](pictures/5.PNG){width=80%}
 
 2. 将 U 盘插入 GNS-N150 控制器的 USB 接口，重新上电启动设备。
 

@@ -11,7 +11,7 @@ $(OUTPUT_DIR)/%.pdf: %.tex
 	pdflatex -halt-on-error -output-directory=$(OUTPUT_DIR) $<
 
 $(OUTPUT_DIR)/%.png: $(OUTPUT_DIR)/%.pdf
-	@pdftoppm -png -r 300 $< $(basename $<)
+	@pdftoppm -png -r 600 $< $(basename $<)
 	@mv -fv $(basename $<)-1.png $@
 	@cp $@ ../pictures/
 

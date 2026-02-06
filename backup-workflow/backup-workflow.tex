@@ -1,0 +1,107 @@
+\documentclass[tikz,border=10pt]{standalone}
+
+\usepackage{CJKutf8}
+% ---- 中文支持（pdflatex）----
+
+% ---- TikZ ----
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+
+\begin{document}
+\begin{CJK*}{UTF8}{gbsn}
+
+\begin{tikzpicture}[
+    node distance=28mm and 24mm,
+    process/.style={
+        draw,
+        rectangle,
+        rounded corners,
+        align=center,
+        minimum width=40mm,
+        minimum height=12mm,
+        font=\small
+    },
+    decision/.style={
+        draw,
+        diamond,
+        aspect=2,
+        align=center,
+        inner sep=2pt,
+        font=\small
+    },
+    startstop/.style={
+        draw,
+        rectangle,
+        rounded corners,
+        minimum width=28mm,
+        minimum height=10mm,
+        align=center,
+        font=\small
+    },
+    arrow/.style={
+        ->,
+        very thick,
+        >=Stealth
+    }
+]
+
+% ---------- 第一行（左 → 右） ----------
+\node[startstop] (start) {开始};
+\node[process, right=of start] (rufus) {使用 Rufus\\烧录还原镜像至 U 盘};
+\node[process, right=of rufus] (flag) {创建 BACKUP\_ROOTFS\\空文件};
+\node[process, right=of flag] (boot) {插入 U 盘\\控制器上电};
+
+\draw[arrow] (start) -- (rufus);
+\draw[arrow] (rufus) -- (flag);
+\draw[arrow] (flag) -- (boot);
+
+% ---------- 第二行（右 → 左） ----------
+\node[process, below=of boot] (uefi) {进入 UEFI\\Delete 键};
+\node[process, left=of uefi] (usbboot) {选择\\BOOT FROM USB};
+\node[process, left=of usbboot] (backup) {自动执行\\系统备份};
+\node[process, left=of backup] (poweroff) {备份完成\\自动断电};
+
+\draw[arrow] (boot) -- (uefi);
+\draw[arrow] (uefi) -- (usbboot);
+\draw[arrow] (usbboot) -- (backup);
+\draw[arrow] (backup) -- (poweroff);
+
+% ---------- 第三行（左 → 右） ----------
+\node[process, below=of poweroff] (result)
+{生成备份目录\\N150\_rootfs\_backup\_data\_XXXX};
+\node[process, right=of result] (extract)
+{取出 U 盘\\获得备份数据};
+
+\draw[arrow] (poweroff) -- (result);
+\draw[arrow] (result) -- (extract);
+
+% ---------- 判断节点 ----------
+\node[decision, right=of extract] (choice)
+{用途选择？};
+
+\draw[arrow] (extract) -- (choice);
+
+% ---------- 分支 1：打包发布镜像 ----------
+\node[process, above right=12mm and 24mm of choice] (package)
+{与旧镜像一起\\上传打包服务器};
+\node[process, right=of package] (newimage)
+{生成新的\\发布镜像};
+
+\draw[arrow] (choice) -- node[above]{打包镜像} (package);
+\draw[arrow] (package) -- (newimage);
+
+% ---------- 分支 2：系统迁移 / 克隆 ----------
+\node[process, below right=12mm and 24mm of choice] (copy)
+{拷贝备份目录\\至 U 盘 image/};
+\node[process, right=of copy] (delete)
+{删除 image/ 中\\原有备份目录};
+
+\draw[arrow] (choice) -- node[below]{系统迁移 / 克隆} (copy);
+\draw[arrow] (copy) -- (delete);
+
+\end{tikzpicture}
+
+
+\end{CJK*}
+\end{document}
