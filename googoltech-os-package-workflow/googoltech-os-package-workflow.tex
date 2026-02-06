@@ -1,0 +1,106 @@
+\documentclass[border=10pt]{standalone}
+
+\usepackage{CJKutf8}
+% ---- 中文支持（pdflatex）----
+
+% ---- TikZ ----
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
+
+\begin{document}
+\begin{CJK*}{UTF8}{gbsn}
+
+\begin{tikzpicture}[
+    node distance=2.8cm and 2.2cm,
+    every node/.style={
+        draw,
+        rectangle,
+        rounded corners,
+        align=left,
+        minimum width=4.2cm,
+        minimum height=2.4cm,
+        font=\small
+    },
+    arrow/.style={
+        ->,
+        thick,
+        >=Stealth
+    }
+]
+
+% ====== 上排 ======
+\node (s1) {
+\textbf{1. 需求确认}\\
+\\
+Redmine / 邮件\\
+Issue 可追溯
+};
+
+\node (s2) [right=of s1] {
+\textbf{2. 基准镜像}\\
+选择与安装\\
+\\
+稳定版本\\
+GNS 控制器完整安装
+};
+
+\node (s3) [right=of s2, minimum width=5.6cm] {
+\textbf{3. 更新集成与版本管控}\\
+\\
+内核 / 驱动 / 组件\\
+/opt 高频目录\\
+Git 白名单追踪关键文件
+};
+
+\node (s4) [right=of s3] {
+\textbf{4. 功能验证}\\
+\\
+功能 + 稳定性测试
+};
+
+% ====== 下排 ======
+\node (s5) [below=of s4, minimum width=5.6cm] {
+\textbf{5. 单元测试与一致性校验}\\
+\\
+release\_check.sh -c\\
+自动重启 + 系统备份\\
+上传打包服务器
+};
+
+\node (s6) [left=of s5, minimum width=5.0cm] {
+\textbf{6. 镜像构建}\\
+\\
+U盘构建 / 自动化打包\\
+按更新范围选择方式
+};
+
+\node (s7) [left=of s6, minimum width=5.0cm] {
+\textbf{7. 镜像发布与交付}\\
+\\
+共享服务器发布\\
+规范命名
+};
+
+\node (s8) [left=of s7] {
+\textbf{8. 升级回退}\\
+\\
+U盘升级\\
+原系统备份\\
+快速回退
+};
+
+% ====== 箭头 ======
+\draw[arrow] (s1) -- (s2);
+\draw[arrow] (s2) -- (s3);
+\draw[arrow] (s3) -- (s4);
+
+\draw[arrow] (s4) -- ++(0,-1.4cm) -| (s5.north);
+
+\draw[arrow] (s5) -- (s6);
+\draw[arrow] (s6) -- (s7);
+\draw[arrow] (s7) -- (s8);
+
+\end{tikzpicture}
+
+\end{CJK*}
+\end{document}
