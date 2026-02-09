@@ -1,10 +1,10 @@
 OUTPUT_DIR := ./build
 TEX_OUTPUT_DIR := ./build/tex_output/
-MD_FILE := ./N150_Image_Backup_Restore_Instruction.md
-MD_FILE_HTML := ~/share/N150_Image_Backup_Restore_Instruction_HTML.md
-MD_PDF := $(OUTPUT_DIR)/N150_Image_Backup_Restore_Instruction.pdf
-MD_TEX_PDF := $(TEX_OUTPUT_DIR)/N150_Image_Backup_Restore_Instruction.pdf
-TEX_FILE := $(OUTPUT_DIR)/N150_Image_Backup_Restore_Instruction.tex
+MD_FILE := GNS_Image_Backup_Restore_Instruction.md
+MD_FILE_HTML := ~/share/GNS_Image_Backup_Restore_Instruction_HTML.md
+MD_PDF := $(OUTPUT_DIR)/GNS_Image_Backup_Restore_Instruction.pdf
+MD_TEX_PDF := $(TEX_OUTPUT_DIR)/GNS_Image_Backup_Restore_Instruction.pdf
+TEX_FILE := $(OUTPUT_DIR)/GNS_Image_Backup_Restore_Instruction.tex
 MD_TO_HTML := $(PWD)/scripts/md_image_to_html.py
 
 all:$(MD_PDF) $(TEX_FILE) $(MD_TEX_PDF) $(MD_FILE_HTML)

@@ -1,0 +1,73 @@
+\documentclass[tikz,border=10pt]{standalone}
+
+\usepackage{CJKutf8}
+% ---- 中文支持（pdflatex）----
+
+% ---- TikZ ----
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+
+\begin{document}
+\begin{CJK*}{UTF8}{gbsn}
+
+
+\begin{tikzpicture}[
+    node distance=22mm and 28mm,
+    every node/.style={
+        draw,
+        rectangle,
+        rounded corners,
+        align=center,
+        minimum width=42mm,
+        minimum height=10mm
+    },
+    arrow/.style={
+        ->,
+        very thick,
+        >=Stealth
+    }
+]
+
+% --- First row (left -> right)
+\node (pc) {Windows PC\\
+自动连接远程 SAMBA};
+
+\node (samba) [right=of pc] {SAMBA 共享目录\\
+\texttt{$\backslash\backslash$192.168.201.73$\backslash$share\_mbr}};
+
+\node (iso) [right=of samba] {上传 ISO\\
+基础镜像};
+
+% --- Second row (right -> left)
+\node (codesys) [below=of iso] {上传 CODESYS 压缩包\\
+\small (.tar.gz / .zip / .rar)};
+
+\node (version) [left=of codesys] {生成 VERSION 文件\\
+\small 8 位版本号\\(如 20220101)};
+
+\node (flag) [left=of version] {生成触发标志文件\\
+\texttt{I\_WANT\_TO\_UPDATE\_CODESYS}};
+
+% --- Third row (downwards)
+\node (service) [below=of flag] {服务器后台服务\\
+自动触发递增打包};
+
+\node (output) [right=of service] {生成新版本\\
+递增打包镜像};
+
+% --- Arrows
+\draw[arrow] (pc) -- (samba);
+\draw[arrow] (samba) -- (iso);
+
+\draw[arrow] (iso) -- (codesys);
+\draw[arrow] (codesys) -- (version);
+\draw[arrow] (version) -- (flag);
+
+\draw[arrow] (flag) -- (service);
+\draw[arrow] (service) -- (output);
+
+\end{tikzpicture}
+
+\end{CJK*}
+\end{document}
