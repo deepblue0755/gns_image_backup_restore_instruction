@@ -9,7 +9,7 @@ MD_TO_HTML := $(PWD)/scripts/md_image_to_html.py
 
 all:$(MD_PDF) $(TEX_FILE) $(MD_TEX_PDF) $(MD_FILE_HTML)
 
-$(MD_PDF): $(MD_FILE)
+$(MD_PDF): $(MD_FILE) ./pictures/auto-package-workflow.png ./pictures/backup-workflow.png ./pictures/googoltech-os-package-workflow.png
 $(MD_FILE_HTML): $(MD_FILE)
 	$(MD_TO_HTML) $< $@
 
@@ -57,3 +57,4 @@ clean_2:
 	$(RM) $(TEX_OUTPUT_DIR)/*.pdf
 clean_3:
 	$(RM) $(MD_FILE_HTML)
+
