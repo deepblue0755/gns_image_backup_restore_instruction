@@ -188,6 +188,8 @@ d. 随后，将备份得到的系统文件与基准镜像一并上传至镜像�
 
 ## GNS-J1900 U盘启动盘制作（Windows 环境）
 
+![](pictures/GNS-J1900-Image-Create.png){width=100%}   
+
 ## GNS-N150 U盘启动盘制作（Windows 环境）
 
 1. 从共享目录
@@ -225,7 +227,6 @@ d. 随后，将备份得到的系统文件与基准镜像一并上传至镜像�
 备份的主要流程如下图所示： 
 
 ![](pictures/backup-workflow.png){width=100%}   
-
 
 1. 在已完成烧录的 U 盘根目录下，新建一个不带任何后缀名的空文件，命名为
    BACKUP_ROOTFS。 文件位置及状态应如下图所示：
